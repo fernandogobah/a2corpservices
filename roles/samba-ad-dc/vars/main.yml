@@ -1,0 +1,36 @@
+samba_packages:
+- acl 
+- attr 
+- samba 
+- samba-dsdb-modules 
+- samba-vfs-modules 
+- winbind 
+- libpam-winbind 
+- libnss-winbind 
+- libpam-krb5 
+- krb5-config 
+- krb5-user
+- dnsutils
+- smbclient
+
+samba_services:
+- smbd 
+- nmbd 
+- winbind
+
+samba_tdb_files:
+- /run/samba/names.tdb
+- /run/samba/gencache.tdb
+- /var/lib/samba/private/secrets.tdb
+- /var/lib/samba/private/sam.ldb.d/metadata.tdb
+- /var/lib/samba/share_info.tdb
+
+samba_configuration_files:
+- /etc/samba/smb.conf
+- /etc/krb5.conf
+
+samba_realm: 4FASTERS.COM.BR
+samba_workgroup: 4FASTERS
+samba_dns_forwarder: 127.0.0.53
+samba_netbios_name: KLN01
+samba_password: Admin123@

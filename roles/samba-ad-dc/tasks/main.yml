@@ -1,0 +1,71 @@
+---
+- name: Install samba packages
+  apt:
+    name: "{{ item }}"
+  loop: "{{ samba_packages }}"
+
+- name: Change hostname
+  hostname:
+    name: "{{ samba_netbios_name }}"
+    use: systemd
+
+- name: Create a fresh /etc/hosts with new hostname
+  template:
+    src: templates/hosts.j2
+    dest: /etc/hosts
+
+- name: Update repositories
+  apt:
+    update_cache: yes
+    force_apt_get: yes
+
+- name: make sure the configuration files don't exist
+  file:
+    path: "{{ item }}"
+    state: absent
+  loop: "{{ samba_configuration_files }}"
+
+- name: Remove database files
+  file:
+    path: "{{ item }}"
+    state: absent
+  loop: "{{ samba_tdb_files }}"
+
+- name: Mask samba services
+  systemd:
+    name: "{{ item }}"
+    masked: yes
+    enabled: no
+    state: stopped
+  loop: "{{ samba_services }}"
+
+- name: Disable systemd-resolve service
+  systemd:
+    name: systemd-resolved
+    state: stopped
+    enabled: no
+    masked: yes
+
+- name: Create a fresh /etc/resolv.conf
+  template:
+    src: templates/resolv.conf.j2
+    dest: /etc/resolv.conf
+
+- name: Create smb.conf
+  command: samba-tool domain provision --server-role=dc --use-rfc2307 --dns-backend=SAMBA_INTERNAL --realm="{{ samba_realm }}" --domain="{{ samba_realm.split('.')[0] }}" --adminpass="{{ samba_password }}"
+  notify: restart samba
+
+- name: Enable samba-ad-dc service
+  systemd:
+    name: samba-ad-dc
+    enabled: yes
+    masked: no
+    daemon_reload: yes
+    state: started
+
+- name: Copy Kerberos configuration file
+  copy:
+    src: /var/lib/samba/private/krb5.conf
+    dest: /etc/krb5.conf
+    remote_src: yes
+

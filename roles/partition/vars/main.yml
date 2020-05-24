@@ -1,0 +1,3 @@
+partition_disk: /dev/sdb
+partition_number: 1
+partition_fs: ext4

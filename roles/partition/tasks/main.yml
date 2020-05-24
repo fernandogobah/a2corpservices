@@ -1,0 +1,12 @@
+---
+- name: Create a new primary partition
+  parted:
+    device: "{{ partition_disk }}"
+    number: 1
+    state: present
+  register: partition_output
+
+- name: Create a ext4 filesystem
+  filesystem:
+    fstype: "{{ partition_fs }}"
+    dev: "{{ partition_disk }}{{partition_number}}"
