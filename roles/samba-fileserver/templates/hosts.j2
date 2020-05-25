@@ -1,6 +1,6 @@
 127.0.0.1 localhost
 127.0.1.1 localhost
-{{ hostvars['kln02']['ansible_facts']['default_ipv4']['address'] }} {{ samba_netbios_name }}.{{ samba_realm }} {{ samba_netbios_name }}
+{{ samba_ip }} {{ samba_netbios_name }}.{{ samba_realm }} {{ samba_netbios_name }}
 
 # The following lines are desirable for IPv6 capable hosts
 ::1     ip6-localhost ip6-loopback

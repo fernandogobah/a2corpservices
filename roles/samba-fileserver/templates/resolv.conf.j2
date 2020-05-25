@@ -1,2 +1,2 @@
-nameserver {{ hostvars['kln01']['ansible_facts']['default_ipv4']['address'] }}
+nameserver {{ samba_ad_ip }}
 search {{ samba_realm | lower }}

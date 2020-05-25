@@ -50,7 +50,4 @@
   notify: restart samba
 
 - name: Join AD
-  shell:
-    net ads join -U administrator%'{{samba_password}}'
-
-
+  shell: net ads join -U administrator%'{{samba_password}}'
