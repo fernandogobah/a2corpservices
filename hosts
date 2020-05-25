@@ -1,8 +1,8 @@
 [samba-ad-dc]
-192.168.0.115
+kln01
 
 [samba-fileserver]
-192.168.0.114
+kln02
 
 [urbackup]
 192.168.0.110

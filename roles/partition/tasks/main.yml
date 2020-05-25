@@ -4,9 +4,22 @@
     device: "{{ partition_disk }}"
     number: 1
     state: present
-  register: partition_output
 
 - name: Create a ext4 filesystem
   filesystem:
     fstype: "{{ partition_fs }}"
     dev: "{{ partition_disk }}{{partition_number}}"
+
+- name: Create data directory
+  file:
+    path: /mnt/data
+    state: directory
+    mode: '0755'
+
+- name: Mount partition and configure fstab
+  mount:
+    path: /mnt/data
+    src: "{{partition_disk}}{{partition_number}}"
+    fstype: ext4
+    opts: defaults
+    state: mounted

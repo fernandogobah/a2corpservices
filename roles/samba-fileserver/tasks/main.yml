@@ -26,14 +26,6 @@
     state: absent
   loop: "{{ samba_tdb_files }}"
 
-- name: Mask samba services
-  systemd:
-    name: "{{ item }}"
-    masked: yes
-    enabled: no
-    state: stopped
-  loop: "{{ samba_services }}"
-
 - name: Disable systemd-resolve service
   systemd:
     name: systemd-resolved
@@ -46,26 +38,19 @@
     src: templates/resolv.conf.j2
     dest: /etc/resolv.conf
 
-- name: Create configuration file and tdb files
-  command: samba-tool domain provision --server-role=dc --use-rfc2307 --dns-backend=SAMBA_INTERNAL --realm="{{ samba_realm }}" --domain="{{ samba_realm.split('.')[0] }}" --adminpass="{{ samba_password }}"
-  
-- name: Copy a fresh smb.conf
+- name: Create a fresh /etc/krb5.conf
+  template:
+    src: templates/krb5.conf.j2
+    dest: /etc/krb5.conf
+
+- name: Create a fresh smb.conf
   template:
     src: templates/smb.conf.j2
     dest: /etc/samba/smb.conf
   notify: restart samba
 
-- name: Enable samba-ad-dc service
-  systemd:
-    name: samba-ad-dc
-    enabled: yes
-    masked: no
-    daemon_reload: yes
-    state: started
+- name: Join AD
+  shell:
+    net ads join -U administrator%'{{samba_password}}'
 
-- name: Copy Kerberos configuration file
-  copy:
-    src: /var/lib/samba/private/krb5.conf
-    dest: /etc/krb5.conf
-    remote_src: yes
 

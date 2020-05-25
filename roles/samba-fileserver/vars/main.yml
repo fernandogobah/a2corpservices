@@ -13,11 +13,6 @@ samba_packages:
 - dnsutils
 - smbclient
 
-samba_services:
-- smbd 
-- nmbd 
-- winbind
-
 samba_tdb_files:
 - /run/samba/names.tdb
 - /run/samba/gencache.tdb
@@ -31,6 +26,5 @@ samba_configuration_files:
 
 samba_realm: A2CORP.COM.BR
 samba_workgroup: A2CORP
-samba_dns_forwarder: 8.8.8.8
-samba_netbios_name: KLN01
+samba_netbios_name: KLN02
 samba_password: Admin123@
