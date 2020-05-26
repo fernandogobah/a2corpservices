@@ -1,0 +1,47 @@
+---
+- name: Install glpi packages
+  apt:
+    name: "{{ item }}"
+  loop: "{{ glpi_packages }}"
+
+- name: Install PyMQL
+  pip:
+    name: PyMySQL
+
+- name: Change root user password
+  mysql_user:
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    check_implicit_admin: yes
+    name: root
+    password: "{{ mysql_root_password }}"
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    state: present
+
+- name: Removes all anonymous user accounts
+  mysql_user:
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    name: ''
+    host_all: yes
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    state: absent
+
+- name: Create glpi database
+  mysql_db:
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    name: glpi
+    state: present
+
+- name: Create glpi user
+  mysql_user:
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    name: glpi
+    password: "{{ mysql_glpi_password }}"
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    priv: 'glpi.*:ALL'
+    state: present
+

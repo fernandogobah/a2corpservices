@@ -1,0 +1,30 @@
+glpi_packages:
+- mariadb-server
+- php
+- php-curl
+- php-gd
+- php-imagick
+- php-intl
+- php-apcu
+- php-memcache
+- php-imap
+- php-mysql
+- php-cas
+- php-ldap
+- php-tidy
+- php-pear
+- php-xmlrpc
+- php-pspell
+- php-mbstring
+- php-json
+- php-iconv
+- php-xml
+- php-gd
+- php-xsl
+- apache2
+- libapache2-mod-php
+- python3-pip
+
+glpi_url: https://github.com/glpi-project/glpi/releases/download/9.4.5/glpi-9.4.5.tgz
+mysql_root_password: root
+mysql_glpi_password: glpi
