@@ -45,3 +45,10 @@
     priv: 'glpi.*:ALL'
     state: present
 
+- name: Download and extract glpi
+  unarchive:
+    src: "{{ glpi_url }}"
+    dest: /var/www/html
+    remote_src: yes
+    owner: www-data
+    group: www-data

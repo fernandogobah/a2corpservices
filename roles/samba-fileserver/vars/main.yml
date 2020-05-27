@@ -25,7 +25,7 @@ samba_configuration_files:
 - /etc/krb5.conf
 
 samba_ip: "{{hostvars['kln02']['ansible_facts']['all_ipv4_addresses'][1]}}"
-samba_ad_ip: "{{hostvars['kln01']['ansible_facts']['all_ipv4_addresses'][1]}}"
+samba_ad_ip: "{{hostvars['kln01']['ansible_facts']['all_ipv4_addresses'][0]}}"
 samba_realm: A2CORP.COM.BR
 samba_workgroup: A2CORP
 samba_netbios_name: KLN02
