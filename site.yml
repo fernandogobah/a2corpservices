@@ -17,8 +17,14 @@
   roles:
     - glpi
 
-- name: Install urbackup
-  hosts: urbackup
+# - name: Install urbackup
+#   hosts: urbackup
+#   become: yes
+#   roles:
+#     - urbackup
+
+- name: Install rocketchat
+  hosts: rocketchat
   become: yes
   roles:
-    - urbackup
+    - rocketchat

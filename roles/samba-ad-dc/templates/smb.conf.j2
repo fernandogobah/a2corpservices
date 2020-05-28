@@ -5,6 +5,7 @@
 	server role = active directory domain controller
 	workgroup = {{ samba_realm.split('.')[0] }}
 	idmap_ldb:use rfc2307 = yes
+	ldap server require strong auth = no
 
 [sysvol]
 	path = /var/lib/samba/sysvol

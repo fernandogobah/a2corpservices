@@ -1,0 +1,3 @@
+- name: Install rocketchat
+  snap:
+    name: rocketchat-server 
