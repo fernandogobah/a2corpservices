@@ -1,0 +1,9 @@
+---
+openvas_packages:
+- openvas
+- openvas-nasl
+- libopenvas-dev
+
+openvas_admin_password: admin
+openvas_host: kln02
+openvas_ip: "{{hostvars['kln02']['ansible_facts']['all_ipv4_addresses'][0]}}"

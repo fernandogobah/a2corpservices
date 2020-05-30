@@ -32,6 +32,6 @@ samba_configuration_files:
 samba_ip: "{{hostvars['kln01']['ansible_facts']['all_ipv4_addresses'][0]}}"
 samba_realm: A2CORP.COM.BR
 samba_workgroup: A2CORP
-samba_dns_forwarder: 8.8.8.8
+samba_dns_forwarder: 192.168.0.1
 samba_netbios_name: KLN01
 samba_password: Admin123@

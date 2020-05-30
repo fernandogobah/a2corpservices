@@ -1,0 +1,23 @@
+---
+- name: Install openvas packages
+  apt:
+    update_cache: yes
+    name: "{{ item }}"
+  loop: "{{ openvas_packages }}"
+  notify: restart openvas
+
+- name: Run initial conf (this one takes time...)
+  command: openvas-setup
+  notify: restart openvas
+
+- name: Create a fresh user
+  command: openvasmd --user=admin --new-password="{{ openvas_admin_password }}"
+
+- name: Copy template openvas
+  template:
+    src: templates/greenbone-security-assistant.service.j2
+    dest: /lib/systemd/system/greenbone-security-assistant.service
+  notify: restart openvas
+
+
+
