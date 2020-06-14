@@ -1,9 +1,4 @@
 ---
-- name: Add urbackup PPA
-  apt_repository:
-    repo: "{{ urbackup_ppa }}"
-    update_cache: yes
-
 - name: Install urbackup
   apt:
-    name: urbackup-server
+    deb: "{{ urbackup_repo }}"

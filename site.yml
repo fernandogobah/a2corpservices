@@ -1,33 +1,33 @@
-# - name: Configure samba AD-DC
-#   hosts: samba-ad-dc
-#   become: yes
-#   roles:
-#     - samba-ad-dc
+- name: Configure samba AD-DC
+  hosts: samba-ad-dc
+  become: yes
+  roles:
+    - samba-ad-dc
 
-# - name: Configure samba file server
-#   hosts: samba-fileserver
-#   become: yes
-#   roles:
-#     - partition
-#     - samba-fileserver
+- name: Configure samba file server
+  hosts: samba-fileserver
+  become: yes
+  roles:
+    - partition
+    - samba-fileserver
 
-# - name: Install GLPI
-#   hosts: glpi
-#   become: yes
-#   roles:
-#     - glpi
+- name: Install GLPI
+  hosts: glpi
+  become: yes
+  roles:
+    - glpi
 
-# # - name: Install urbackup
-# #   hosts: urbackup
-# #   become: yes
-# #   roles:
-# #     - urbackup
+- name: Install urbackup
+  hosts: urbackup
+  become: yes
+  roles:
+    - urbackup
 
-# - name: Install rocketchat
-#   hosts: rocketchat
-#   become: yes
-#   roles:
-#     - rocketchat
+- name: Install rocketchat
+  hosts: rocketchat
+  become: yes
+  roles:
+    - rocketchat
 
 - name: Install openvas
   hosts: openvas
